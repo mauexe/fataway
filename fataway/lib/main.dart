@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'dashboard.dart';
+import 'history.dart';
+import 'statistics.dart';
+import 'addmeal.dart';
+import 'settings.dart';
 
 void main() {
   runApp(MyApp());
