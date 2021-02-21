@@ -19,11 +19,9 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Settings"),
-        ),
         body:
         SettingsList(
+          backgroundColor: Colors.white,
           sections: [
             SettingsSection(
               title: 'Section',
@@ -36,14 +34,15 @@ class Settings extends StatelessWidget {
                 ),
                 SettingsTile(
                   title: 'Weight',
-                  subtitle: 'Set your weight',
+                  //todo muss geändert werden wenn eine Eingabe vorhanden ist
+                  subtitle: weight.toString() + " kg",
                   leading: Icon(Icons.all_out),
                   onPressed: OpenWeight,
                 ),
                 SettingsTile(
-                  title: 'Weight',
+                  title: 'Height',
                   //todo muss geändert werden wenn eine Eingabe vorhanden ist
-                  subtitle: weight.toString(),
+                  subtitle: 170.toString() + " cm",
                   leading: Icon(Icons.all_out),
                   onPressed: OpenWeight,
                 ),
@@ -73,7 +72,7 @@ class Settings extends StatelessWidget {
           FlatButton(
             textColor: Color(0xFF6200EE),
             onPressed: () {
-
+              Navigator.pop(context);
             },
             child: Text('CANCEL'),
           ),

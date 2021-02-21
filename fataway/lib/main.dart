@@ -41,7 +41,7 @@ class _RootStatefulWidgetSate extends State<RootStatefulWidget> {
     StatisticsWidget(),
     Text('Add Meal'),
     Text('History'),
-    Text('Settings'),
+    Settings(),
   ];
 
   void _onItemTapped(int index) {
