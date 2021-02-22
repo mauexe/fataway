@@ -9,9 +9,18 @@ import 'statistics.dart';
 import 'addmeal.dart';
 import 'settings.dart';
 
+class Settings extends StatefulWidget {
 
+  Settings({Key key}) : super(key: key);
 
-class Settings extends StatelessWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _SettingsState();
+  }
+
+}
+
+class _SettingsState extends State<Settings> {
   // This widget is the root of your application.
 
   double weight = 0;
@@ -37,14 +46,12 @@ class Settings extends StatelessWidget {
                 ),
                 SettingsTile(
                   title: 'Weight',
-                  //todo muss geändert werden wenn eine Eingabe vorhanden ist
                   subtitle: weight.toString() + " kg",
                   leading: Icon(Icons.accessibility),
                   onPressed: OpenWeight,
                 ),
                 SettingsTile(
                   title: 'Height',
-                  //todo muss geändert werden wenn eine Eingabe vorhanden ist
                   subtitle: height.toString() + " cm",
                   leading: Icon(Icons.square_foot),
                   onPressed: OpenHeight,
@@ -83,7 +90,9 @@ class Settings extends StatelessWidget {
           FlatButton(
             textColor: Color(0xFF6200EE),
             onPressed: () {
-              this.weight = double.parse(weightController.text);
+              setState(() {
+                this.weight = double.parse(weightController.text);
+              });
               Navigator.pop(context);
             },
             child: Text('ACCEPT'),
@@ -96,7 +105,6 @@ class Settings extends StatelessWidget {
   OpenHeight(BuildContext context) {
 
     TextEditingController heightController = TextEditingController();
-
     return showDialog(context: context, builder: (context){
       return AlertDialog(
         title: Text('Enter your height!'),
@@ -120,7 +128,9 @@ class Settings extends StatelessWidget {
           FlatButton(
             textColor: Color(0xFF6200EE),
             onPressed: () {
-              this.height = double.parse(heightController.text);
+              setState(() {
+                this.height = double.parse(heightController.text);
+              });
               Navigator.pop(context);
             },
             child: Text('ACCEPT'),
