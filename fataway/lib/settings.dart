@@ -15,6 +15,9 @@ class Settings extends StatelessWidget {
   // This widget is the root of your application.
 
   double weight = 0;
+  double height = 0;
+
+  final _amountValidator = RegExInputFormatter.withRegex('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +39,15 @@ class Settings extends StatelessWidget {
                   title: 'Weight',
                   //todo muss geändert werden wenn eine Eingabe vorhanden ist
                   subtitle: weight.toString() + " kg",
-                  leading: Icon(Icons.all_out),
+                  leading: Icon(Icons.accessibility),
                   onPressed: OpenWeight,
                 ),
                 SettingsTile(
                   title: 'Height',
                   //todo muss geändert werden wenn eine Eingabe vorhanden ist
-                  subtitle: 170.toString() + " cm",
-                  leading: Icon(Icons.all_out),
-                  onPressed: OpenWeight,
+                  subtitle: height.toString() + " cm",
+                  leading: Icon(Icons.square_foot),
+                  onPressed: OpenHeight,
                 ),
               ],
             ),
@@ -62,11 +65,12 @@ class Settings extends StatelessWidget {
         title: Text('Enter your weight!'),
         content: TextField(
           controller: weightController,
-          decoration: InputDecoration(labelText: "Enter your weight"),
-          keyboardType: TextInputType.number,
+          decoration: InputDecoration(labelText: "Weight (kg)"),
+          keyboardType: TextInputType.numberWithOptions(
+            decimal: true,
+          ),
           inputFormatters: <TextInputFormatter>[
-          FilteringTextInputFormatter.digitsOnly
-          // todo Dezimale Zahlen eingeben
+            _amountValidator,
         ]),
         actions: [
           FlatButton(
@@ -89,32 +93,86 @@ class Settings extends StatelessWidget {
     });
   }
 
-}
+  OpenHeight(BuildContext context) {
 
-class SimpleDialogItem extends StatelessWidget {
-  const SimpleDialogItem({Key key, this.icon, this.color, this.text, this.onPressed})
-      : super(key: key);
+    TextEditingController heightController = TextEditingController();
 
-  final IconData icon;
-  final Color color;
-  final String text;
-  final VoidCallback onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return SimpleDialogOption(
-      onPressed: onPressed,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Icon(icon, size: 36.0, color: color),
-          Padding(
-            padding: const EdgeInsetsDirectional.only(start: 16.0),
-            child: Text(text),
+    return showDialog(context: context, builder: (context){
+      return AlertDialog(
+        title: Text('Enter your height!'),
+        content: TextField(
+            controller: heightController,
+            decoration: InputDecoration(labelText: "Height (cm)"),
+            keyboardType: TextInputType.numberWithOptions(
+              decimal: true,
+            ),
+            inputFormatters: <TextInputFormatter>[
+              _amountValidator,
+            ]),
+        actions: [
+          FlatButton(
+            textColor: Color(0xFF6200EE),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('CANCEL'),
+          ),
+          FlatButton(
+            textColor: Color(0xFF6200EE),
+            onPressed: () {
+              this.height = double.parse(heightController.text);
+              Navigator.pop(context);
+            },
+            child: Text('ACCEPT'),
           ),
         ],
-      ),
-    );
+      );
+    });
+  }
+}
+
+
+
+class RegExInputFormatter implements TextInputFormatter {
+  final RegExp _regExp;
+
+  RegExInputFormatter._(this._regExp);
+
+  factory RegExInputFormatter.withRegex(String regexString) {
+    try {
+      final regex = RegExp(regexString);
+      return RegExInputFormatter._(regex);
+    } catch (e) {
+      // Something not right with regex string.
+      assert(false, e.toString());
+      return null;
+    }
+  }
+
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final oldValueValid = _isValid(oldValue.text);
+    final newValueValid = _isValid(newValue.text);
+    if (oldValueValid && !newValueValid) {
+      return oldValue;
+    }
+    return newValue;
+  }
+
+  bool _isValid(String value) {
+    try {
+      final matches = _regExp.allMatches(value);
+      for (Match match in matches) {
+        if (match.start == 0 && match.end == value.length) {
+          return true;
+        }
+      }
+      return false;
+    } catch (e) {
+      // Invalid regex
+      assert(false, e.toString());
+      return true;
+    }
   }
 }

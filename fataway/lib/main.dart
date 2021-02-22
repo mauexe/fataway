@@ -40,7 +40,7 @@ class _RootStatefulWidgetSate extends State<RootStatefulWidget> {
     Text('Dashboard'),
     StatisticsWidget(),
     Text('Add Meal'),
-    Text('History'),
+    History(),
     Settings(),
   ];
 
