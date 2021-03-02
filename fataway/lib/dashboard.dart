@@ -16,7 +16,7 @@ class _DashboardState extends State<Dashboard> {
         margin: EdgeInsets.only(top: 40),
         child: Column(
           children: <Widget>[
-            Text("Today's calorie intake", style: TextStyle(fontSize: 40, fontWeight: FontWeight.w400)),
+            Text("Today's calorie intake", style: TextStyle(fontSize: 30, fontWeight: FontWeight.w400)),
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,

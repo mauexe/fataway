@@ -63,7 +63,7 @@ class _SettingsState extends State<Settings> {
                         onPressed: OpenHeight,
                       ),
                       SettingsTile(
-                        title: 'Gain or Loose',
+                        title: 'Preferences',
                         subtitle: ReturnSentence(),
                         leading: Icon(Icons.settings),
                         onPressed: (BuildContext context) {
@@ -94,10 +94,10 @@ class _SettingsState extends State<Settings> {
 
   ReturnSentence(){
     if(loosingWeight == true) {
-      return "You currently want to loose weight";
+      return "loose weight";
     }
     else
-      return "You currently want to gain weight";
+      return "gain weight";
   }
 
   OpenWeight(BuildContext context) {
