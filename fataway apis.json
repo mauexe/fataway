@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "9c64036e-917f-42d1-a53a-37c83e302d30",
+		"name": "fataway apis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get foods",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "x-app-key",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "c3d76dd78854a98c806b2c933c890cfc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-app-id",
+						"value": "9dd5921c",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"query\" : \"schnitzel\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://trackapi.nutritionix.com/v2/search/instant",
+					"protocol": "https",
+					"host": [
+						"trackapi",
+						"nutritionix",
+						"com"
+					],
+					"path": [
+						"v2",
+						"search",
+						"instant"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get nutrition values",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "x-app-key",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "c3d76dd78854a98c806b2c933c890cfc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-app-id",
+						"value": "9dd5921c",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"query\" : \"knödel\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://trackapi.nutritionix.com/v2/natural/nutrients",
+					"protocol": "https",
+					"host": [
+						"trackapi",
+						"nutritionix",
+						"com"
+					],
+					"path": [
+						"v2",
+						"natural",
+						"nutrients"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
