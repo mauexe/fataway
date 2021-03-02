@@ -13,7 +13,7 @@ class History extends StatefulWidget {
 
 class _HistoryState extends State<History> {
   // Testdaten
-  static List<String> entries = <String>['Avocado', 'Bubble Tea', 'Eis', 'Ananas', 'Orangensaft', 'Schnitzel', 'Pizza', 'Apfel'];
+  static List<String> entries = <String>['Avocado', 'Bubble Tea', 'Ice Cream', 'Soup', 'Orange juice', 'Schnitzel', 'Pizza', 'Apple'];
 
   Widget _buildList() {
     return ListView.builder(
@@ -35,7 +35,7 @@ class _HistoryState extends State<History> {
 
     switch(action) {
       case SlidableAction.delete:
-        Utils.showSnackBar(context, "Eintrag wurde gelöscht");
+        Utils.showSnackBar(context, "Entry was deleted");
         break;
     }
   }

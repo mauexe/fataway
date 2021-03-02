@@ -37,7 +37,7 @@ class RootStatefulWidget extends StatefulWidget {
 class _RootStatefulWidgetSate extends State<RootStatefulWidget> {
   int _selectedIndex = 0;
   static List<Widget> _options = <Widget> [
-    Text('Dashboard'),
+    Dashboard(),
     StatisticsWidget(),
     Text('Add Meal'),
     History(),
