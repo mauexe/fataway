@@ -23,8 +23,10 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   // This widget is the root of your application.
 
+  //todo Speicherung der Werte in eine Datei
   double weight = 0;
   double height = 0;
+  bool loosingWeight = true;
 
   final _amountValidator = RegExInputFormatter.withRegex('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
 
@@ -32,35 +34,70 @@ class _SettingsState extends State<Settings> {
   Widget build(BuildContext context) {
     return Scaffold(
         body:
-        SettingsList(
-          backgroundColor: Colors.white,
-          sections: [
-            SettingsSection(
-              title: 'Section',
-              tiles: [
-                SettingsTile(
-                  title: 'Language',
-                  subtitle: 'English',
-                  leading: Icon(Icons.language),
-                  onPressed: (BuildContext context) {},
-                ),
-                SettingsTile(
-                  title: 'Weight',
-                  subtitle: weight.toString() + " kg",
-                  leading: Icon(Icons.accessibility),
-                  onPressed: OpenWeight,
-                ),
-                SettingsTile(
-                  title: 'Height',
-                  subtitle: height.toString() + " cm",
-                  leading: Icon(Icons.square_foot),
-                  onPressed: OpenHeight,
-                ),
-              ],
-            ),
-          ],
+        Container(
+          child: Container(
+            margin: EdgeInsets.only(left: 0, top: 10, right: 0, bottom: 0),
+            child:
+              SettingsList(
+                backgroundColor: Colors.white,
+                sections: [
+                  SettingsSection(
+                    tiles: [
+                      SettingsTile(
+                        title: 'Language',
+                        subtitle: 'English',
+                        leading: Icon(Icons.language),
+                        onPressed: (BuildContext context) {},
+                      ),
+                      //todo Strich ist stärker zu sehen als andere
+                      SettingsTile(
+                        title: 'Weight',
+                        subtitle: weight.toString() + " kg",
+                        leading: Icon(Icons.accessibility),
+                        onPressed: OpenWeight,
+                      ),
+                      SettingsTile(
+                        title: 'Height',
+                        subtitle: height.toString() + " cm",
+                        leading: Icon(Icons.square_foot),
+                        onPressed: OpenHeight,
+                      ),
+                      SettingsTile(
+                        title: 'Gain or Loose',
+                        subtitle: ReturnSentence(),
+                        leading: Icon(Icons.settings),
+                        onPressed: (BuildContext context) {
+                          setState(() {
+                            if(loosingWeight == false){
+                              loosingWeight = true;
+                            }
+                            else{
+                              loosingWeight = false;
+                            }
+                          });
+                        },
+                      ),
+                      SettingsTile(
+                        title: 'App-Info',
+                        subtitle: "Information about fatAway",
+                        leading: Icon(Icons.info_outline),
+                        onPressed: OpenInfo,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+          ),
         )
     );
+  }
+
+  ReturnSentence(){
+    if(loosingWeight == true) {
+      return "You currently want to loose weight";
+    }
+    else
+      return "You currently want to gain weight";
   }
 
   OpenWeight(BuildContext context) {
@@ -138,6 +175,41 @@ class _SettingsState extends State<Settings> {
         ],
       );
     });
+  }
+
+  OpenInfo(BuildContext context){
+    return showDialog(context: context, builder: (context){
+      return new AlertDialog(
+          title: Text('About the App'),
+          content: Container(
+            height: 100,
+            child: Column(
+              children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [Text("Version:"), Text("1.0")],
+                  ),
+                  SizedBox(width: 20, height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [Text("Latest Update:"), Text("02.03.2021")],
+                  )
+                ],
+            ),
+          ),
+          actions: [
+            FlatButton(
+              textColor: Color.fromRGBO(21, 158, 0, 1),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text('OK', style: TextStyle(fontSize: 17),),
+            ),
+
+]
+    );
+});
+
   }
 }
 
