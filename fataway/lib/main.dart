@@ -39,7 +39,7 @@ class _RootStatefulWidgetSate extends State<RootStatefulWidget> {
   static List<Widget> _options = <Widget> [
     Text('Dashboard'),
     StatisticsWidget(),
-    Text('Add Meal'),
+    AddMeal(),
     History(),
     Settings(),
   ];
