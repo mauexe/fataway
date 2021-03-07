@@ -5,9 +5,12 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter/painting.dart';
 import 'dashboard.dart';
 import 'history.dart';
+import 'main.dart';
 import 'statistics.dart';
 import 'addmeal.dart';
 import 'settings.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class Settings extends StatefulWidget {
 
@@ -23,11 +26,19 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   // This widget is the root of your application.
 
-  //todo Speicherung der Werte in eine Datei
-  double weight = 0;
-  double height = 0;
-  bool loosingWeight = true;
 
+
+  double weight;
+  double height;
+  bool losingWeight;
+
+  _SettingsState() {
+    weight = settingsBox.get('weight');
+    height = settingsBox.get('height');
+    losingWeight = settingsBox.get('losingWeight');
+  }
+
+  //todo Speicherung der Werte in eine Datei
   final _amountValidator = RegExInputFormatter.withRegex('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
 
   @override
@@ -67,11 +78,11 @@ class _SettingsState extends State<Settings> {
                         leading: Icon(Icons.settings),
                         onPressed: (BuildContext context) {
                           setState(() {
-                            if(loosingWeight == false){
-                              loosingWeight = true;
+                            if(losingWeight == false){
+                              losingWeight = true;
                             }
                             else{
-                              loosingWeight = false;
+                              losingWeight = false;
                             }
                           });
                         },
@@ -92,11 +103,15 @@ class _SettingsState extends State<Settings> {
   }
 
   ReturnSentence(){
-    if(loosingWeight == true) {
+    if(losingWeight == true) {
+      settingsBox.put('losingWeight', false);
       return "lose weight";
     }
-    else
+    else{
+      settingsBox.put('losingWeight', true);
       return "gain weight";
+    }
+
   }
 
   OpenWeight(BuildContext context) {
@@ -127,6 +142,7 @@ class _SettingsState extends State<Settings> {
             textColor: Color(0xFF6200EE),
             onPressed: () {
               setState(() {
+                settingsBox.put('weight', this.weight);
                 this.weight = double.parse(weightController.text);
               });
               Navigator.pop(context);
@@ -165,6 +181,7 @@ class _SettingsState extends State<Settings> {
             textColor: Color(0xFF6200EE),
             onPressed: () {
               setState(() {
+                settingsBox.put('height', this.height);
                 this.height = double.parse(heightController.text);
               });
               Navigator.pop(context);

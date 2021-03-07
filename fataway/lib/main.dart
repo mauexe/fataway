@@ -4,9 +4,14 @@ import 'history.dart';
 import 'statistics.dart';
 import 'addmeal.dart';
 import 'settings.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
-  //await Hive.initFlutter();
+var settingsBox;
+
+void main() async {
+  await Hive.initFlutter();
+  settingsBox = await Hive.openBox('settingsBox');
 
   runApp(RootApp());
 }
