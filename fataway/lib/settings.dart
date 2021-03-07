@@ -94,7 +94,7 @@ class _SettingsState extends State<Settings> {
 
   ReturnSentence(){
     if(loosingWeight == true) {
-      return "loose weight";
+      return "lose weight";
     }
     else
       return "gain weight";

@@ -6,6 +6,8 @@ import 'addmeal.dart';
 import 'settings.dart';
 
 void main() {
+  //await Hive.initFlutter();
+
   runApp(RootApp());
 }
 
