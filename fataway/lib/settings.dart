@@ -49,7 +49,6 @@ class _SettingsState extends State<Settings> {
                         leading: Icon(Icons.language),
                         onPressed: (BuildContext context) {},
                       ),
-                      //todo Strich ist stärker zu sehen als andere
                       SettingsTile(
                         title: 'Weight',
                         subtitle: weight.toString() + " kg",
@@ -94,7 +93,7 @@ class _SettingsState extends State<Settings> {
 
   ReturnSentence(){
     if(loosingWeight == true) {
-      return "loose weight";
+      return "lose weight";
     }
     else
       return "gain weight";
