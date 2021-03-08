@@ -4,9 +4,14 @@ import 'history.dart';
 import 'statistics.dart';
 import 'addmeal.dart';
 import 'settings.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+var prefs;
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  prefs = await SharedPreferences.getInstance();
+
   runApp(RootApp());
 }
 
