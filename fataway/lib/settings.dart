@@ -5,6 +5,7 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter/painting.dart';
 import 'dashboard.dart';
 import 'history.dart';
+import 'main.dart';
 import 'statistics.dart';
 import 'addmeal.dart';
 import 'settings.dart';
@@ -21,13 +22,15 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  // This widget is the root of your application.
+
+  double weight;
+  double height;
+  bool losingWeight;
+
+  _SettingsState() {
+  }
 
   //todo Speicherung der Werte in eine Datei
-  double weight = 0;
-  double height = 0;
-  bool loosingWeight = true;
-
   final _amountValidator = RegExInputFormatter.withRegex('^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
 
   @override
@@ -67,11 +70,11 @@ class _SettingsState extends State<Settings> {
                         leading: Icon(Icons.settings),
                         onPressed: (BuildContext context) {
                           setState(() {
-                            if(loosingWeight == false){
-                              loosingWeight = true;
+                            if(losingWeight == false){
+                              losingWeight = true;
                             }
                             else{
-                              loosingWeight = false;
+                              losingWeight = false;
                             }
                           });
                         },
@@ -92,11 +95,13 @@ class _SettingsState extends State<Settings> {
   }
 
   ReturnSentence(){
-    if(loosingWeight == true) {
+    if(losingWeight == true) {
       return "lose weight";
     }
-    else
+    else{
       return "gain weight";
+    }
+
   }
 
   OpenWeight(BuildContext context) {
