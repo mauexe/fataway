@@ -9,8 +9,6 @@ import 'main.dart';
 import 'statistics.dart';
 import 'addmeal.dart';
 import 'settings.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class Settings extends StatefulWidget {
 
@@ -24,18 +22,12 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  // This widget is the root of your application.
-
-
 
   double weight;
   double height;
   bool losingWeight;
 
   _SettingsState() {
-    weight = settingsBox.get('weight');
-    height = settingsBox.get('height');
-    losingWeight = settingsBox.get('losingWeight');
   }
 
   //todo Speicherung der Werte in eine Datei
@@ -104,11 +96,9 @@ class _SettingsState extends State<Settings> {
 
   ReturnSentence(){
     if(losingWeight == true) {
-      settingsBox.put('losingWeight', false);
       return "lose weight";
     }
     else{
-      settingsBox.put('losingWeight', true);
       return "gain weight";
     }
 
@@ -142,7 +132,6 @@ class _SettingsState extends State<Settings> {
             textColor: Color(0xFF6200EE),
             onPressed: () {
               setState(() {
-                settingsBox.put('weight', this.weight);
                 this.weight = double.parse(weightController.text);
               });
               Navigator.pop(context);
@@ -181,7 +170,6 @@ class _SettingsState extends State<Settings> {
             textColor: Color(0xFF6200EE),
             onPressed: () {
               setState(() {
-                settingsBox.put('height', this.height);
                 this.height = double.parse(heightController.text);
               });
               Navigator.pop(context);
