@@ -84,6 +84,10 @@ class _RootStatefulWidgetSate extends State<RootStatefulWidget> {
         unselectedItemColor: Colors.grey,
         onTap: _onItemTapped,
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {},
+      ),
     );
   }
 }
