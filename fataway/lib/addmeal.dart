@@ -16,7 +16,8 @@ class _AddMealState extends State<AddMeal> {
       resizeToAvoidBottomInset: false,
       body: Stack(
         fit: StackFit.expand,
-        children: [
+        children: <Widget>[
+          showContent(),
           buildFloatingSearchBar(),
         ],
       ),
@@ -68,6 +69,27 @@ class _AddMealState extends State<AddMeal> {
           ),
         );
       },
+    );
+  }
+
+  Widget showContent(){
+    return Scaffold(
+      body:Column(
+          children: <Widget>[
+            SizedBox(height: 100, width: 50,),
+              Container(
+                child: Text("Schnitzel"),
+                color: Colors.blue,
+              ),
+            Container(
+              child: Text("Schnitzel"),
+              color: Colors.black,
+            ),
+            Container(
+              child: Text("Schnitzel"),
+              color: Colors.orange,
+            )
+            ])
     );
   }
 }
