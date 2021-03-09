@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:package_info/package_info.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:flutter/painting.dart';
 import 'dashboard.dart';
@@ -23,6 +24,7 @@ class _SettingsState extends State<Settings> {
   double weight = prefs.getDouble('weight') ?? 0.0;
   double height = prefs.getDouble('height') ?? 0.0;
   bool losingWeight = prefs.getBool('losingWeight') ?? true;
+
 
   final _amountValidator = RegExInputFormatter.withRegex(
       '^\$|^(0|([1-9][0-9]{0,}))(\\.[0-9]{0,})?\$');
@@ -181,7 +183,10 @@ class _SettingsState extends State<Settings> {
         });
   }
 
-  OpenInfo(BuildContext context) {
+  OpenInfo(BuildContext context) async {
+
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
     return showDialog(
         context: context,
         builder: (context) {
@@ -193,7 +198,7 @@ class _SettingsState extends State<Settings> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Text("Version:"), Text("1.0")],
+                      children: [Text("Version:"), Text(packageInfo.version)],
                     ),
                     SizedBox(
                       width: 20,
@@ -201,7 +206,7 @@ class _SettingsState extends State<Settings> {
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [Text("Latest Update:"), Text("02.03.2021")],
+                      children: [Text("Build Number:"), Text(packageInfo.buildNumber)],
                     )
                   ],
                 ),
