@@ -38,11 +38,11 @@ class RootStatefulWidget extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _RootStatefulWidgetSate();
+    return _RootStatefulWidgetState();
   }
 }
 
-class _RootStatefulWidgetSate extends State<RootStatefulWidget> {
+class _RootStatefulWidgetState extends State<RootStatefulWidget> {
   int _selectedIndex = 0;
   static List<Widget> _options = <Widget> [
     Dashboard(),
@@ -73,6 +73,7 @@ class _RootStatefulWidgetSate extends State<RootStatefulWidget> {
         child: Icon(Icons.add),
         elevation: 2,
       ),
+      appBar: AppBar(backgroundColor: Colors.white, toolbarHeight: 0, elevation: 0,),
       bottomNavigationBar: BottomAppBar(
         child: FABBottomAppBar(
           onTabSelected: _onItemTapped,
