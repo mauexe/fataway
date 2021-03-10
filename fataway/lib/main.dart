@@ -24,6 +24,7 @@ class RootApp extends StatelessWidget {
     return MaterialApp(
       title: _title,
       theme: ThemeData(
+        brightness: Brightness.light,
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
