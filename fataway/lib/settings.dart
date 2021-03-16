@@ -23,7 +23,9 @@ class Settings extends StatefulWidget {
 class _SettingsState extends State<Settings> {
   double weight = prefs.getDouble('weight') ?? 0.0;
   double height = prefs.getDouble('height') ?? 0.0;
+  int age = prefs.getInt('age') ?? 0;
   bool losingWeight = prefs.getBool('losingWeight') ?? true;
+  bool isMale = prefs.getBool('sex') ?? true;
 
 
   final _amountValidator = RegExInputFormatter.withRegex(
@@ -57,6 +59,20 @@ class _SettingsState extends State<Settings> {
                   subtitle: height.toString() + " cm",
                   leading: Icon(Icons.square_foot),
                   onPressed: OpenHeight,
+                ),
+                SettingsTile(
+                  title: 'Age',
+                  subtitle: age.toString() + " years",
+                  leading: Icon(Icons.square_foot),
+                  onPressed: OpenAge,
+                ),
+
+                //todo: Umbauen auf DropDown-Menü
+                SettingsTile(
+                  title: 'Sex',
+                  subtitle: ReturnSex(),
+                  leading: Icon(Icons.square_foot),
+                  onPressed: OpenSex,
                 ),
                 SettingsTile.switchTile(
                   title: 'Intention',
@@ -99,6 +115,14 @@ class _SettingsState extends State<Settings> {
       return "You currently want to lose weight";
     } else {
       return "You currently want to gain weight";
+    }
+  }
+
+  ReturnSex() {
+    if (isMale == true) {
+      return "Male";
+    } else {
+      return "Female";
     }
   }
 
@@ -183,6 +207,45 @@ class _SettingsState extends State<Settings> {
         });
   }
 
+  OpenAge(BuildContext context) {
+    TextEditingController ageController = TextEditingController();
+
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Enter your age!'),
+            content: TextField(
+                controller: ageController,
+                decoration: InputDecoration(labelText: "Age (years)"),
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                  FilteringTextInputFormatter.digitsOnly,
+                ]),
+            actions: [
+              FlatButton(
+                textColor: Color(0xFF6200EE),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('CANCEL'),
+              ),
+              FlatButton(
+                textColor: Color(0xFF6200EE),
+                onPressed: () {
+                  setState(() {
+                    this.age = int.parse(ageController.text);
+                    prefs.setInt('age', this.age);
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text('ACCEPT'),
+              ),
+            ],
+          );
+        });
+  }
+
   OpenInfo(BuildContext context) async {
 
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
@@ -225,7 +288,61 @@ class _SettingsState extends State<Settings> {
               ]);
         });
   }
+
+  OpenSex(BuildContext context){
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Enter your height!'),
+            content: Container(
+              height: 125,
+              child:
+                Column(
+                  children: [
+                    RadioListTile(
+                      title: const Text('Male'),
+                      value: true,
+                      groupValue: 1,
+                      onChanged: (value) {
+                        setState(() {
+                          this.isMale = value;
+                        });
+                        prefs.setBool('sex', this.isMale);
+                        Navigator.pop(context);
+                      },
+                    ),
+                    RadioListTile(
+                      title: const Text('Female'),
+                      value: false,
+                      groupValue: 1,
+                      onChanged: (value) {
+                        setState(() {
+                          this.isMale = value;
+                        });
+                        prefs.setBool('sex', this.isMale);
+                        Navigator.pop(context);
+                      },
+                    ),
+                  ],
+                ),
+            ),
+
+            actions: [
+              FlatButton(
+                textColor: Color(0xFF6200EE),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('CANCEL'),
+              ),
+            ],
+          );
+        });
+  }
+
 }
+
 
 class RegExInputFormatter implements TextInputFormatter {
   final RegExp _regExp;
